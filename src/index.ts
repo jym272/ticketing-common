@@ -1,1 +1,1 @@
-export * from '@controllers/home';
+export * from '@controllers/index';
