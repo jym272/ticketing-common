@@ -5,6 +5,7 @@
     "allowJs": true,
     "removeComments": true,
     "resolveJsonModule": true,
+    "declaration": true,
     "typeRoots": ["./node_modules/@types"],
     "sourceMap": true,
     "outDir": "dist",
