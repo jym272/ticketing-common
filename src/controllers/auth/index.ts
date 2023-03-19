@@ -1,2 +1,2 @@
-export * from '@controllers/auth/verifyCurrentUser';
-export * from '@controllers/auth/requireAuth';
+export * from './verifyCurrentUser';
+export * from './requireAuth';
