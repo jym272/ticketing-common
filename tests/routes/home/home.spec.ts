@@ -2,10 +2,10 @@ import { test, expect } from '@playwright/test';
 import { logFinished, logRunning } from '../../test-utils';
 import { httpStatusCodes } from '@utils/statusCodes';
 
-// eslint-disable-next-line no-empty-pattern -- because we need to pass only the testInfo
+// eslint-disable-next-line no-empty-pattern
 test.beforeEach(({}, testInfo) => logRunning(testInfo));
 
-// eslint-disable-next-line no-empty-pattern -- because we need to pass only the testInfo
+// eslint-disable-next-line no-empty-pattern
 test.afterEach(({}, testInfo) => logFinished(testInfo));
 
 test.describe('routes: home', () => {
