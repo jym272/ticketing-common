@@ -1,8 +1,8 @@
-import { requireAuthController, verifyCurrentUserController } from '@controllers/auth';
+import { authController } from '@controllers/auth';
 
 export const commonController = {
-  requireAuth: requireAuthController(),
-  verifyCurrentUser: verifyCurrentUserController
+  requireAuth: authController.requireAuth,
+  verifyCurrentUser: authController.verifyCurrentUser
 };
 
 export * as utils from '@utils/index';
