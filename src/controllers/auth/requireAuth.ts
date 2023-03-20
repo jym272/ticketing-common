@@ -10,7 +10,11 @@ export const requireAuthController = () => {
    */
   return (req: Request, res: Response, next: NextFunction) => {
     if (!req.currentUser) {
-      return throwError('Not authorized.', httpStatusCodes.UNAUTHORIZED);
+      return throwError(
+        'Not authorized.',
+        httpStatusCodes.UNAUTHORIZED,
+        new Error('req.currentUser is undefined in requireAuth controller')
+      );
     }
     next();
   };

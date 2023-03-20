@@ -6,3 +6,5 @@ export const commonController = {
   requireAuth: requireAuthController(),
   verifyCurrentUser: verifyCurrentUserController
 };
+
+export * as utils from '@utils/index';
