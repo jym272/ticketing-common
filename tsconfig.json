@@ -22,7 +22,8 @@
     "paths": {
       "@controllers/*": ["./src/controllers/*"],
       "@utils/*": ["./src/utils/*"],
-      "@custom-types/*": ["./src/types/*"]
+      "@custom-types/*": ["./src/types/*"],
+      "@routes/*": ["./src/routes/*"]
     }
   },
   "include": ["src/**/*", "tests/**/*"],
