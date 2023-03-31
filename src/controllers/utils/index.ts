@@ -21,7 +21,7 @@ const envController = () => {
 };
 
 const errorController = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- because of error handling middleware
   return (err: ErrorWithStatus, req: Request, res: Response, next: NextFunction) => {
     const { message, statusCode } = err;
     res.status(statusCode).json({ message });
