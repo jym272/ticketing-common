@@ -21,7 +21,7 @@ const envController = () => {
 };
 
 const errorController = () => {
-  // eslint-disable-next-line no-unused-vars -- next is required for express error handling
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return (err: ErrorWithStatus, req: Request, res: Response, next: NextFunction) => {
     const { message, statusCode } = err;
     res.status(statusCode).json({ message });

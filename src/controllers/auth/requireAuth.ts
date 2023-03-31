@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { throwError } from '@utils/messages';
-import { httpStatusCodes } from '@utils/statusCodes';
+import { httpStatusCodes, throwError } from '@utils/index';
 
 export const requireAuthController = () => {
   /*

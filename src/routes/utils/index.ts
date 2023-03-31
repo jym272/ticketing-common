@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { utilsController } from '@controllers/index';
-import { throwError } from '@utils/messages';
-import { httpStatusCodes } from '@utils/statusCodes';
+import { httpStatusCodes, throwError } from '@utils/index';
 
 export const utils = Router();
 
