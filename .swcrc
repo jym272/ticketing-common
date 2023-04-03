@@ -9,10 +9,10 @@
     "target": "es2020",
     "paths": {
       "@routes/*": ["./src/routes/*"],
-      "@middlewares/*": ["./src/middlewares/*"],
       "@controllers/*": ["./src/controllers/*"],
       "@utils/*": ["./src/utils/*"],
       "@db/*": ["./src/db/*"],
+      "@events/*": ["./src/events/*"],
       "@custom-types/*": ["./src/types/*"]
     },
     "baseUrl": "."

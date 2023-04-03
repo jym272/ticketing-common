@@ -1,4 +1,4 @@
-import { JwtPayloadCustom } from '../index';
+import { JwtPayloadCustom } from '@custom-types/jwt';
 
 export {};
 
