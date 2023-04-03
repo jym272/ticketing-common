@@ -1,6 +1,6 @@
 import { JwtPayloadCustom } from '@custom-types/jwt';
 
-export {};
+// export {};
 
 declare global {
   namespace Express {
