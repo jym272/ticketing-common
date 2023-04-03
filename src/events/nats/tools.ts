@@ -43,10 +43,6 @@ const enumValuesToArr = <T extends string>(e: Record<T, string>): string[] => {
   return Object.values(e);
 };
 
-// const enumToArr = <T extends string>(e: Record<T, string>): T[] => {
-//   return Object.keys(e).map(k => k as T);
-// };
-
 export const extractStreamName = (subject: SubjectsValues) => {
   const parts = subject.split('.');
   if (!parts.length) {

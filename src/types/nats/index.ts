@@ -17,6 +17,6 @@ export interface Options {
   streams: [Streams, ...Streams[]];
   nats: {
     url: string;
-    maxReconnectAttempts: number;
+    maxReconnectAttempts?: number;
   };
 }

@@ -8,6 +8,7 @@ const { NOT_FOUND, BAD_REQUEST, OK } = httpStatusCodes;
 export const utils = Router();
 
 // the instance of nc is unique in the lib, it must be initialized by the api
+// TODO: is essential in kuberenetes, testei!!!
 utils.get('/api/healthz', (req, res) => {
   const ncIsClosed = nc ? nc.isClosed() : true;
   if (ncIsClosed) {
