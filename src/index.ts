@@ -8,3 +8,4 @@ export const commonController = {
 
 export * as utils from '@utils/index';
 export * as routes from '@routes/index';
+export * as events from '@events/index';
