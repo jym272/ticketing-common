@@ -6,7 +6,8 @@ enum HttpStatusCodes400 {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
-  CONFLICT = 409
+  CONFLICT = 409,
+  FORBIDDEN = 403
 }
 enum HttpStatusCodes500 {
   INTERNAL_SERVER_ERROR = 500
