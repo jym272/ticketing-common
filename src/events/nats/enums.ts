@@ -18,6 +18,8 @@ export enum ExpirationSubjects {
   ExpirationComplete = 'expiration.complete'
 }
 
+export type Subjects = TicketSubjects | OrderSubjects | ExpirationSubjects;
+
 export const subjects = {
   ...OrderSubjects,
   ...TicketSubjects,

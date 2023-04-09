@@ -1,7 +1,6 @@
 import { consumerOpts, JetStreamSubscription, JsMsg } from 'nats';
 import { ConsumerOptsBuilder } from 'nats/lib/nats-base-client/types';
-import { Subjects } from '@custom-types/nats';
-import { extractStreamName, getDurableName, js, sc } from '@events/nats';
+import { extractStreamName, getDurableName, js, sc, Subjects } from '@events/nats';
 import { log } from '@utils/logs';
 
 const getOptsBuilderConfigured = (subj: Subjects): ConsumerOptsBuilder => {

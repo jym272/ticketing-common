@@ -1,5 +1,4 @@
-import { Subjects } from '@custom-types/nats';
-import { js, sc } from '@events/nats';
+import { js, sc, Subjects } from '@events/nats';
 import { log } from '@utils/logs';
 
 export const publish = async <T>(msg: T, subj: Subjects) => {

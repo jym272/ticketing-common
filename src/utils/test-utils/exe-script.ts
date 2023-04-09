@@ -1,8 +1,7 @@
 import childProcess from 'child_process';
 import { promisify } from 'util';
 import { activateLogging, log } from '@utils/logs';
-import { Subjects } from '@custom-types/nats';
-import { Streams } from '@events/nats';
+import { Streams, Subjects } from '@events/nats';
 
 const exec = promisify(childProcess.exec);
 export const runPsqlCommand = async (psqlCommand: string, logging = activateLogging()) => {
