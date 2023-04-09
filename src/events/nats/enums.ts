@@ -1,3 +1,4 @@
+// Modify manually generateApiSubjects if new streams are added
 export enum Streams {
   TICKETS = 'tickets',
   ORDERS = 'orders',
