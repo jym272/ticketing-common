@@ -1,5 +1,5 @@
 import { SubjectsValues } from '@custom-types/nats';
-import { ExpirationSubjects, nc, OrderSubjects, Streams, TicketSubjects } from '@events/index';
+import { ChargeSubjects, ExpirationSubjects, nc, OrderSubjects, Streams, TicketSubjects } from '@events/index';
 import { StringCodec } from 'nats';
 import { log } from '@utils/logs';
 
@@ -34,6 +34,9 @@ export const generateApiSubjects = (...stream: [Streams, ...Streams[]]) => {
         break;
       case Streams.EXPIRATION:
         apiSubjects.push(Object.values(ExpirationSubjects));
+        break;
+      case Streams.CHARGES:
+        apiSubjects.push(Object.values(ChargeSubjects));
         break;
       default:
         throw new Error('Stream not found');
