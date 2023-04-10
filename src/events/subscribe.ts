@@ -2,6 +2,7 @@ import { consumerOpts, JetStreamSubscription, JsMsg } from 'nats';
 import { ConsumerOptsBuilder } from 'nats/lib/nats-base-client/types';
 import { extractStreamName, getDurableName, js, sc, Subjects } from '@events/nats';
 import { log } from '@utils/logs';
+import { getEnvOrFail } from '@utils/env';
 
 const getOptsBuilderConfigured = (subj: Subjects): ConsumerOptsBuilder => {
   const opts = consumerOpts();
@@ -29,4 +30,13 @@ export const subscribe = async (subj: Subjects, cb: (m: JsMsg) => Promise<void>)
     void cb(m);
   }
   log(`[${subj}] subscription closed`);
+};
+
+export const nakTheMsg = (m: JsMsg, maxRetries = Number(getEnvOrFail('NACK_MAX_RETRIES'))) => {
+  if (m.info.redeliveryCount >= maxRetries) {
+    log(`Max retries reached ${maxRetries}, terminating message`);
+    m.term();
+    return;
+  }
+  m.nak(Number(getEnvOrFail('NACK_DELAY_MS')));
 };
