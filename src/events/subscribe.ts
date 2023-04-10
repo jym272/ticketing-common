@@ -33,10 +33,10 @@ export const subscribe = async (subj: Subjects, cb: (m: JsMsg) => Promise<void>)
 };
 
 /**
- Naks a message with retries and delay - NACK_DELAY_MS env var.
+ Naks a message with retries and delay - NACK_DELAY_MS env var
 
- @param {JsMsg} m - The message to be nacked.
- @param {number} [maxRetries] - The maximum number of retries allowed. Defaults to the value of the NACK_MAX_RETRIES env var.
+ @param {JsMsg} m - The message to be nacked
+ @param {number} [maxRetries] - The maximum number of retries allowed. Defaults to the value of the NACK_MAX_RETRIES env var
 
  @returns {void}
  */
