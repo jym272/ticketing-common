@@ -3,7 +3,7 @@ export enum Streams {
   TICKETS = 'tickets',
   ORDERS = 'orders',
   EXPIRATION = 'expiration',
-  CHARGES = 'charges'
+  PAYMENTS = 'payments'
 }
 
 export enum OrderSubjects {
@@ -14,19 +14,19 @@ export enum TicketSubjects {
   TicketCreated = 'tickets.created',
   TicketUpdated = 'tickets.updated'
 }
-export enum ChargeSubjects {
-  ChargeCreated = 'charges.created'
+export enum PaymentSubjects {
+  ChargeCreated = 'payments.created'
 }
 
 export enum ExpirationSubjects {
   ExpirationComplete = 'expiration.complete'
 }
 
-export type Subjects = TicketSubjects | OrderSubjects | ExpirationSubjects | ChargeSubjects;
+export type Subjects = TicketSubjects | OrderSubjects | ExpirationSubjects | PaymentSubjects;
 
 export const subjects = {
   ...OrderSubjects,
   ...TicketSubjects,
   ...ExpirationSubjects,
-  ...ChargeSubjects
+  ...PaymentSubjects
 };
