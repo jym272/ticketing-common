@@ -8,7 +8,7 @@ export enum Streams {
 
 export enum OrderSubjects {
   OrderCreated = 'orders.created',
-  OrderCancelled = 'orders.cancelled'
+  OrderUpdated = 'orders.updated'
 }
 export enum TicketSubjects {
   TicketCreated = 'tickets.created',
