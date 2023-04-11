@@ -46,9 +46,8 @@ const roundToTwoDecimals = (num: number) => {
   return Math.round(num * 100) / 100;
 };
 
-export const createAValidPriceCents = () => {
-  const validPrice = createAValidPrice();
-  return roundToTwoDecimals(Number(validPrice) * 100);
+export const createAValidPriceCents = (validPrice: number) => {
+  return roundToTwoDecimals(validPrice * 100);
 };
 /*
  * With a valid integer part, the decimal part is invalid:
