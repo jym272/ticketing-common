@@ -15,7 +15,7 @@ export enum TicketSubjects {
   TicketUpdated = 'tickets.updated'
 }
 export enum PaymentSubjects {
-  ChargeCreated = 'payments.created'
+  PaymentCreated = 'payments.created'
 }
 
 export enum ExpirationSubjects {
