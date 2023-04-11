@@ -9,3 +9,9 @@ export enum OrderStatus {
   // The order has reserved the ticket and the user has provided payment successfully
   Complete = 'complete'
 }
+
+export const getRandomOrderStatus = () => {
+  const values = Object.values(OrderStatus);
+  const randomIndex = Math.floor(Math.random() * values.length);
+  return values[randomIndex] as OrderStatus;
+};
