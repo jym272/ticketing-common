@@ -37,14 +37,18 @@ export const subscribe = async (subj: Subjects, cb: (m: JsMsg) => Promise<void>)
 
  @param {JsMsg} m - The message to be nacked
  @param {number} [maxRetries] - The maximum number of retries allowed. Defaults to the value of the NACK_MAX_RETRIES env var
-
+ @param {number} delay - The delay in milliseconds. Defaults to the value of the NACK_DELAY_MS env var
  @returns {void}
  */
-export const nakTheMsg = (m: JsMsg, maxRetries = Number(getEnvOrFail('NACK_MAX_RETRIES'))) => {
+export const nakTheMsg = (
+  m: JsMsg,
+  maxRetries = Number(getEnvOrFail('NACK_MAX_RETRIES')),
+  delay = Number(getEnvOrFail('NACK_DELAY_MS'))
+) => {
   if (m.info.redeliveryCount >= maxRetries) {
     log(`Max retries reached ${maxRetries}, terminating message`);
     m.term();
     return;
   }
-  m.nak(Number(getEnvOrFail('NACK_DELAY_MS')));
+  m.nak(delay);
 };
