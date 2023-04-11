@@ -19,22 +19,27 @@ const createRandomMultiplier = (maxZeros: number) => {
 };
 
 /*
- * Valid price: [1.0, 100000000.99] with MAX_INTEGER 8 and MAX_DECIMALS 2
+ * Valid price: [1.0, 1,000,000.99) with MAX_INTEGER 6 and MAX_DECIMALS 2
  */
 export const createAValidPrice = (): string => {
   const integerMultiplier = createRandomMultiplier(MAX_INTEGER);
   const decimalMultiplier = createRandomMultiplier(MAX_DECIMALS);
-  // integerMultiplier -> [1, 10, ..., 10**8]
+  // integerMultiplier -> [1, 10, ..., 10**6]
   //  1 - Math.random() -> (0, 1]
-  // (0, 1] * [1, 10, ..., 10**8] -> [1, 10, ..., 10**8]
-  // integerPriceValid -> [1, 10**8] with MAX_INTEGER 8
-  const integerPrice = Math.ceil((1 - Math.random()) * integerMultiplier).toString();
+  // (0, 1] * [1, 10, ..., 10**6] -> [1, 10, ..., 10**6]
+  // integerPrice -> [1, 10**6] with MAX_INTEGER 6
+  const integer = Math.ceil((1 - Math.random()) * integerMultiplier);
+  let integerPrice = integer;
+  if (integer === Math.pow(10, MAX_INTEGER)) {
+    // integerPriceValid -> [1, 10**6) with MAX_INTEGER 6
+    integerPrice = integer - 1;
+  }
   // decimalMultiplier -> [1, 10, 100]
   //  Math.random() -> [0, 1)
   // [0, 1) * [1, 10, 100] -> [0, 100) -> con floor -> [0, 99]
   // decimalPriceValid -> [0, 99] with MAX_DECIMALS 2
   const decimalPrice = Math.floor(Math.random() * decimalMultiplier).toString();
-  return `${integerPrice}.${decimalPrice}`;
+  return `${integerPrice.toString()}.${decimalPrice}`;
 };
 /*
  * With a valid integer part, the decimal part is invalid:
