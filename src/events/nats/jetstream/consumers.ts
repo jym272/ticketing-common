@@ -1,4 +1,4 @@
-import { AckPolicy, createInbox, DeliverPolicy, JetStreamManager } from 'nats';
+import { AckPolicy, createInbox, DeliverPolicy, JetStreamManager, nanos } from 'nats';
 import { apiSubjects, extractStreamName, getDurableName, Streams } from '@events/nats';
 import { SubjectsValues, UniqueConsumerProps } from '@custom-types/nats';
 import { log } from '@utils/logs';
@@ -55,7 +55,8 @@ const verifyConsumer = async (jsm: JetStreamManager, uniqueConsumer: UniqueConsu
       ack_policy: AckPolicy.Explicit,
       deliver_subject: createInbox(),
       deliver_group: queueGroupName,
-      filter_subject: filterSubject
+      filter_subject: filterSubject,
+      ack_wait: nanos(10 * 1000) // 10 seconds
     });
     log(`Consumer with name ${durableName} CREATED`);
     return;
