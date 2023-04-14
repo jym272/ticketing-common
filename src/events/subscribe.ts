@@ -1,8 +1,8 @@
 import { consumerOpts, JetStreamSubscription, JsMsg } from 'nats';
 import { ConsumerOptsBuilder } from 'nats/lib/nats-base-client/types';
-import { extractStreamName, getDurableName, js, sc, Subjects } from '@events/nats';
-import { log } from '@utils/logs';
-import { getEnvOrFail } from '@utils/env';
+import { extractStreamName, getDurableName, js, logMessage, Subjects } from '@events/nats';
+import { getEnvOrFail, log } from '@utils/index';
+import chalk from 'chalk';
 
 const getOptsBuilderConfigured = (subj: Subjects, queueGroupName: string): ConsumerOptsBuilder => {
   const opts = consumerOpts();
@@ -23,13 +23,19 @@ export const subscribe = async (subj: Subjects, queueGroupName: string, cb: (m: 
     log(`Error subscribing to ${subj}`, e);
     throw e;
   }
-  log(`[${subj}] subscription opened`);
+  log(chalk`{gray [}{blue ${subj}}{gray ]} {bold.green subscription opened}`);
+
   for await (const m of sub) {
-    log(`[${m.seq}]: [${sub.getProcessed()}]: ${sc.decode(m.data)}`);
-    // igual no puedo esperar nada
+    const seq = m.seq;
+    const strSeq = m.info.streamSequence;
+    const redeliveryCount = m.info.redeliveryCount;
+    const coloredLog = chalk`{bold.green SUB }{gray [}{cyan str_seq=${strSeq}}{gray ]}{gray [}{magenta seq=${seq}}{gray ]}{gray [}{red rdlvery=${redeliveryCount}}{gray ]}: ${logMessage(
+      m.data
+    )}`;
+    log(coloredLog);
     void cb(m);
   }
-  log(`[${subj}] subscription closed`);
+  log(chalk`{gray [}{blue ${subj}}{gray ]} {bold.green subscription closed}`);
 };
 
 /**

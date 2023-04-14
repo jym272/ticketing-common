@@ -1,7 +1,7 @@
 import { SubjectsValues } from '@custom-types/nats';
 import { ExpirationSubjects, nc, OrderSubjects, PaymentSubjects, Streams, TicketSubjects } from '@events/index';
 import { StringCodec } from 'nats';
-import { log } from '@utils/logs';
+import { colorObject, log } from '@utils/logs';
 
 export const getDurableName = (subject: SubjectsValues, queueGroupName: string) => {
   const parts = subject.split('.');
@@ -63,3 +63,9 @@ export const extractStreamName = (subject: SubjectsValues) => {
 };
 
 export const sc = StringCodec();
+
+export const logMessage = (data: Uint8Array) => {
+  const msgString = sc.decode(data);
+  const msg = JSON.parse(msgString) as Record<string, unknown>;
+  return colorObject(msg);
+};
