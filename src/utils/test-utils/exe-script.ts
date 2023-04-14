@@ -93,6 +93,8 @@ export const insertIntoTableWithReturnJson = async <T>(
       return `'${v}'`;
     } else if (typeof v === 'object' && v !== null) {
       return `'${JSON.stringify(v)}'::jsonb`;
+    } else if (v instanceof Date) {
+      return `'${v.toISOString()}'`;
     } else {
       return v;
     }
