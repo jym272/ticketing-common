@@ -84,11 +84,19 @@ export const truncateTables = async (...table: [string, ...string[]]) => {
 
 export const insertIntoTableWithReturnJson = async <T>(
   table: string,
-  props: Record<string, string | number>,
+  props: Partial<T>, //Record<string, string | number | Record<string, unknown>>,
   logging = activateLogging()
 ) => {
   const keys = Object.keys(props).map(k => `"${k}"`);
-  const values = Object.values(props).map(v => (typeof v === 'string' ? `'${v}'` : v));
+  const values = Object.values(props).map(v => {
+    if (typeof v === 'string') {
+      return `'${v}'`;
+    } else if (typeof v === 'object' && v !== null) {
+      return `'${JSON.stringify(v)}'::jsonb`;
+    } else {
+      return v;
+    }
+  });
   const psqlCommand = `insert into "${table}" (${keys.join(', ')}) values (${values.join(
     ', '
   )}) returning row_to_json("${table}".*);`;
