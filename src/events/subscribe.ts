@@ -6,7 +6,7 @@ import { getEnvOrFail } from '@utils/env';
 
 const getOptsBuilderConfigured = (subj: Subjects, queueGroupName: string): ConsumerOptsBuilder => {
   const opts = consumerOpts();
-  opts.queue(subj);
+  opts.queue(queueGroupName);
   opts.manualAck();
   opts.bind(extractStreamName(subj), getDurableName(subj, queueGroupName));
   return opts;
