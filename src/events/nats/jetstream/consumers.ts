@@ -5,11 +5,11 @@ import { log } from '@utils/logs';
 
 const STREAM_NOT_FOUND = 'no stream matches subject';
 
-const createConsumerProps = (values: SubjectsValues[]) =>
+const createConsumerProps = (values: SubjectsValues[], queueGroupName: string) =>
   values.map(subjectValue => {
     return {
       durableName: getDurableName(subjectValue),
-      queueGroupName: subjectValue,
+      queueGroupName,
       filterSubject: subjectValue
     };
   });
@@ -64,12 +64,12 @@ const verifyConsumer = async (jsm: JetStreamManager, uniqueConsumer: UniqueConsu
   log(`Consumer with name ${durableName} FOUND`);
 };
 
-export const verifyConsumers = async (jsm: JetStreamManager) => {
+export const verifyConsumers = async (jsm: JetStreamManager, queueGroupName: string) => {
   if (!apiSubjects.length) {
     throw new Error('No subjects found');
   }
   for (const subjectsValuesPerStream of apiSubjects) {
-    const durables = createConsumerProps(subjectsValuesPerStream);
+    const durables = createConsumerProps(subjectsValuesPerStream, queueGroupName);
     for (const durable of durables) {
       await verifyConsumer(jsm, durable);
     }

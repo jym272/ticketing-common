@@ -4,18 +4,17 @@ import { JetStreamClient, NatsConnection } from 'nats';
 
 export let js: JetStreamClient | undefined;
 
-const getJetStreamClient = async (nc: NatsConnection) => {
+const getJetStreamClient = (nc: NatsConnection) => {
   if (js) {
     return js;
   }
-  const jsm = await nc.jetstreamManager();
-  await verifyConsumers(jsm);
+
   js = nc.jetstream();
   return js;
 };
 
-const createJetStreamClient = async (nc: NatsConnection) => {
-  await getJetStreamClient(nc);
+const createJetStreamClient = (nc: NatsConnection) => {
+  getJetStreamClient(nc);
 };
 
 export let apiSubjects: SubjectsValues[][] = [];
@@ -23,6 +22,8 @@ export let apiSubjects: SubjectsValues[][] = [];
 export const startJetStream = async (opts: Options) => {
   apiSubjects = generateApiSubjects(...opts.streams);
   const nc = await getNatsConnection(opts.nats);
-  await createJetStreamClient(nc);
+  const jsm = await nc.jetstreamManager();
+  await verifyConsumers(jsm, opts.queueGroupName);
+  createJetStreamClient(nc);
   void monitorNatsConnectionStatus();
 };
