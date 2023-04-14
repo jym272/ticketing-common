@@ -3,11 +3,12 @@ import { ExpirationSubjects, nc, OrderSubjects, PaymentSubjects, Streams, Ticket
 import { StringCodec } from 'nats';
 import { log } from '@utils/logs';
 
-export const getDurableName = (subject: SubjectsValues) => {
+export const getDurableName = (subject: SubjectsValues, queueGroupName: string) => {
   const parts = subject.split('.');
   if (!parts.length) {
     throw new Error('Subject is empty');
   }
+  parts.push(queueGroupName);
   const upperCaseParts = parts.map(part => part.toUpperCase());
   return upperCaseParts.join('_');
 };

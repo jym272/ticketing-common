@@ -8,7 +8,7 @@ const STREAM_NOT_FOUND = 'no stream matches subject';
 const createConsumerProps = (values: SubjectsValues[], queueGroupName: string) =>
   values.map(subjectValue => {
     return {
-      durableName: getDurableName(subjectValue),
+      durableName: getDurableName(subjectValue, queueGroupName),
       queueGroupName,
       filterSubject: subjectValue
     };

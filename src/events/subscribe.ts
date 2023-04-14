@@ -4,21 +4,21 @@ import { extractStreamName, getDurableName, js, sc, Subjects } from '@events/nat
 import { log } from '@utils/logs';
 import { getEnvOrFail } from '@utils/env';
 
-const getOptsBuilderConfigured = (subj: Subjects): ConsumerOptsBuilder => {
+const getOptsBuilderConfigured = (subj: Subjects, queueGroupName: string): ConsumerOptsBuilder => {
   const opts = consumerOpts();
   opts.queue(subj);
   opts.manualAck();
-  opts.bind(extractStreamName(subj), getDurableName(subj));
+  opts.bind(extractStreamName(subj), getDurableName(subj, queueGroupName));
   return opts;
 };
 
-export const subscribe = async (subj: Subjects, cb: (m: JsMsg) => Promise<void>) => {
+export const subscribe = async (subj: Subjects, queueGroupName: string, cb: (m: JsMsg) => Promise<void>) => {
   if (!js) {
     throw new Error('Jetstream is not defined');
   }
   let sub: JetStreamSubscription;
   try {
-    sub = await js.subscribe(subj, getOptsBuilderConfigured(subj));
+    sub = await js.subscribe(subj, getOptsBuilderConfigured(subj, queueGroupName));
   } catch (e) {
     log(`Error subscribing to ${subj}`, e);
     throw e;
