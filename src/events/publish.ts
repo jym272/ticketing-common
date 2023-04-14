@@ -1,6 +1,12 @@
 import { js, sc, Subjects } from '@events/nats';
-import { log, logMessage } from '@utils/logs';
+import { colorObject, log } from '@utils/logs';
 import chalk from 'chalk';
+
+const logMessage = (data: Uint8Array) => {
+  const msgString = sc.decode(data);
+  const msg = JSON.parse(msgString) as Record<string, unknown>;
+  return colorObject(msg);
+};
 
 export const publish = async <T>(msg: T, subj: Subjects) => {
   const msgString = JSON.stringify({ [subj]: msg });

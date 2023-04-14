@@ -1,5 +1,4 @@
 import chalk from 'chalk';
-import { sc } from '@events/nats';
 
 // eslint-disable-next-line no-console
 export const log = console.log;
@@ -28,9 +27,4 @@ export const colorObject = (obj: Record<never, unknown>, level = 0): string => {
     }
     return acc;
   }, '')} }`;
-};
-export const logMessage = (data: Uint8Array) => {
-  const msgString = sc.decode(data);
-  const msg = JSON.parse(msgString) as Record<string, unknown>;
-  return colorObject(msg);
 };

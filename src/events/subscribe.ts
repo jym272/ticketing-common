@@ -1,7 +1,7 @@
 import { consumerOpts, JetStreamSubscription, JsMsg } from 'nats';
 import { ConsumerOptsBuilder } from 'nats/lib/nats-base-client/types';
-import { extractStreamName, getDurableName, js, Subjects } from '@events/nats';
-import { log, logMessage } from '@utils/logs';
+import { extractStreamName, getDurableName, js, sc, Subjects } from '@events/nats';
+import { colorObject, log } from '@utils/logs';
 import { getEnvOrFail } from '@utils/env';
 import chalk from 'chalk';
 
@@ -11,6 +11,12 @@ const getOptsBuilderConfigured = (subj: Subjects, queueGroupName: string): Consu
   opts.manualAck();
   opts.bind(extractStreamName(subj), getDurableName(subj, queueGroupName));
   return opts;
+};
+
+const logMessage = (data: Uint8Array) => {
+  const msgString = sc.decode(data);
+  const msg = JSON.parse(msgString) as Record<string, unknown>;
+  return colorObject(msg);
 };
 
 export const subscribe = async (subj: Subjects, queueGroupName: string, cb: (m: JsMsg) => Promise<void>) => {
