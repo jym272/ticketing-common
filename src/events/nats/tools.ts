@@ -1,6 +1,6 @@
 import { SubjectsValues } from '@custom-types/nats';
 import { ExpirationSubjects, nc, OrderSubjects, PaymentSubjects, Streams, TicketSubjects } from '@events/index';
-import { StringCodec } from 'nats';
+import { Events, StringCodec } from 'nats';
 import { colorObject, log } from '@utils/logs';
 
 export const getDurableName = (subject: SubjectsValues, queueGroupName: string) => {
@@ -18,8 +18,9 @@ export const monitorNatsConnectionStatus = async () => {
     throw new Error('Nats connection not found');
   }
   for await (const status of nc.status()) {
-    // logs with chalk TODO with color according to type
-    log('nats status: ', { data: status.data, type: status.type });
+    if (Object.values(Events).includes(status.type as Events)) {
+      log(colorObject({ 'nats-connection': status }));
+    }
   }
 };
 
