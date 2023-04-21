@@ -13,7 +13,7 @@ export const verifyStreams = async (jsm: JetStreamManager, streams: Streams[]) =
         log(`Stream ${stream} not found, creating...`);
         await jsm.streams.add({ name: stream, subjects: [streamSubj] });
         log(`Stream ${stream} with subject ${streamSubj} CREATED`);
-        return;
+        continue;
       }
       throw e;
     }
