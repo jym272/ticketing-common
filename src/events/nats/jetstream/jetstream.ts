@@ -1,4 +1,10 @@
-import { generateApiSubjects, getNatsConnection, monitorNatsConnectionStatus, verifyConsumers } from '@events/nats';
+import {
+  generateApiSubjects,
+  getNatsConnection,
+  monitorNatsConnectionStatus,
+  verifyConsumers,
+  verifyStreams
+} from '@events/nats';
 import { Options, SubjectsValues } from '@custom-types/nats';
 import { JetStreamClient, NatsConnection } from 'nats';
 
@@ -23,6 +29,7 @@ export const startJetStream = async (opts: Options) => {
   apiSubjects = generateApiSubjects(...opts.streams);
   const nc = await getNatsConnection(opts.nats);
   const jsm = await nc.jetstreamManager();
+  await verifyStreams(jsm, opts.streams);
   await verifyConsumers(jsm, opts.queueGroupName);
   createJetStreamClient(nc);
   void monitorNatsConnectionStatus();
