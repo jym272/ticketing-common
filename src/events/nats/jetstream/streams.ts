@@ -11,10 +11,10 @@ export const verifyStreams = async (jsm: JetStreamManager, streams: Streams[]) =
       await jsm.streams.find(streamSubj);
     } catch (e) {
       if (e instanceof Error && e.message === STREAM_NOT_FOUND) {
-        log(chalk`{bold.yellow notFound }{gray [}{cyan stream=${stream}}{gray ]}`);
+        log(chalk`{bold.yellow notFound}\t{gray [}{cyan stream=${stream}}{gray ]}`);
         await jsm.streams.add({ name: stream, subjects: [streamSubj] });
         log(
-          chalk`{bold.green created }{gray [}{cyan stream=${stream}}{gray ]} {gray [}{magenta subjects=${streamSubj}}{gray ]}`
+          chalk`{bold.green created}\t{gray [}{cyan stream=${stream}}{gray ]}\t{gray [}{magenta subjects=${streamSubj}}{gray ]}`
         );
         continue;
       }

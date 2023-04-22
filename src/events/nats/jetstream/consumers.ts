@@ -31,7 +31,7 @@ const verifyConsumer = async (jsm: JetStreamManager, uniqueConsumer: UniqueConsu
 
   if (!(await findConsumer(jsm, durableName, stream))) {
     log(
-      chalk`{bold.yellow notFound }{gray [}{cyan consumer=${durableName}}{gray ]} {gray [}{magenta stream=${stream}}{gray ]}`
+      chalk`{bold.yellow notFound}\t{gray [}{cyan consumer=${durableName}}{gray ]}\t{gray [}{magenta stream=${stream}}{gray ]}`
     );
     await jsm.consumers.add(stream, {
       durable_name: durableName,
@@ -43,7 +43,7 @@ const verifyConsumer = async (jsm: JetStreamManager, uniqueConsumer: UniqueConsu
       ack_wait: nanos(10 * 1000)
     });
     log(
-      chalk`{bold.green created }{gray [}{cyan consumer=${durableName}}{gray ]} {gray [}{magenta stream=${stream}}{gray ]}`
+      chalk`{bold.green created}\t{gray [}{cyan consumer=${durableName}}{gray ]}\t{gray [}{magenta stream=${stream}}{gray ]}`
     );
     return;
   }
