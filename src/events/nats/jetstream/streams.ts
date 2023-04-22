@@ -2,6 +2,7 @@ import { JetStreamManager } from 'nats';
 import { Streams } from '@events/nats';
 import { log } from '@utils/logs';
 import { STREAM_NOT_FOUND } from '@utils/constants';
+import chalk from 'chalk';
 
 export const verifyStreams = async (jsm: JetStreamManager, streams: Streams[]) => {
   for (const stream of streams) {
@@ -10,13 +11,14 @@ export const verifyStreams = async (jsm: JetStreamManager, streams: Streams[]) =
       await jsm.streams.find(streamSubj);
     } catch (e) {
       if (e instanceof Error && e.message === STREAM_NOT_FOUND) {
-        log(`Stream ${stream} not found, creating...`);
+        log(chalk`{bold.yellow notFound }{gray [}{cyan stream=${stream}}{gray ]}`);
         await jsm.streams.add({ name: stream, subjects: [streamSubj] });
-        log(`Stream ${stream} with subject ${streamSubj} CREATED`);
+        log(
+          chalk`{bold.green created }{gray [}{cyan stream=${stream}}{gray ]} {gray [}{magenta subjects=${streamSubj}}{gray ]}`
+        );
         continue;
       }
       throw e;
     }
-    log(`Stream '${stream}' with subject '${streamSubj}' FOUND`);
   }
 };

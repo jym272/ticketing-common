@@ -2,6 +2,7 @@ import { AckPolicy, createInbox, DeliverPolicy, JetStreamManager, nanos } from '
 import { apiSubjects, extractStreamName, getDurableName, Streams } from '@events/nats';
 import { SubjectsValues, UniqueConsumerProps } from '@custom-types/nats';
 import { log } from '@utils/logs';
+import chalk from 'chalk';
 
 const createConsumerProps = (values: SubjectsValues[], queueGroupName: string) =>
   values.map(subjectValue => {
@@ -29,7 +30,9 @@ const verifyConsumer = async (jsm: JetStreamManager, uniqueConsumer: UniqueConsu
   const stream = extractStreamName(filterSubject);
 
   if (!(await findConsumer(jsm, durableName, stream))) {
-    log(`Consumer with name ${durableName} not found. Creating consumer...`);
+    log(
+      chalk`{bold.yellow notFound }{gray [}{cyan consumer=${durableName}}{gray ]} {gray [}{magenta stream=${stream}}{gray ]}`
+    );
     await jsm.consumers.add(stream, {
       durable_name: durableName,
       deliver_policy: DeliverPolicy.All,
@@ -39,10 +42,11 @@ const verifyConsumer = async (jsm: JetStreamManager, uniqueConsumer: UniqueConsu
       filter_subject: filterSubject,
       ack_wait: nanos(10 * 1000)
     });
-    log(`Consumer with name ${durableName} CREATED`);
+    log(
+      chalk`{bold.green created }{gray [}{cyan consumer=${durableName}}{gray ]} {gray [}{magenta stream=${stream}}{gray ]}`
+    );
     return;
   }
-  log(`Consumer with name ${durableName} FOUND`);
 };
 
 export const verifyConsumers = async (jsm: JetStreamManager, queueGroupName: string) => {
