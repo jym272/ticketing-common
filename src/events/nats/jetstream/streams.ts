@@ -14,7 +14,7 @@ export const verifyStreams = async (jsm: JetStreamManager, streams: Streams[]) =
         log(chalk`{bold.yellow notFound}\t{gray [}{cyan stream=${stream}}{gray ]}`);
         await jsm.streams.add({ name: stream, subjects: [streamSubj] });
         log(
-          chalk`{bold.green created}\t{gray [}{cyan stream=${stream}}{gray ]}\t{gray [}{magenta subjects=${streamSubj}}{gray ]}`
+          chalk`{bold.green created }\t{gray [}{cyan stream=${stream}}{gray ]}\t{gray [}{magenta subjects=${streamSubj}}{gray ]}`
         );
         continue;
       }

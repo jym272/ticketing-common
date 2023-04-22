@@ -43,7 +43,7 @@ const verifyConsumer = async (jsm: JetStreamManager, uniqueConsumer: UniqueConsu
       ack_wait: nanos(10 * 1000)
     });
     log(
-      chalk`{bold.green created}\t{gray [}{cyan consumer=${durableName}}{gray ]}\t{gray [}{magenta stream=${stream}}{gray ]}`
+      chalk`{bold.green created }\t{gray [}{cyan consumer=${durableName}}{gray ]}\t{gray [}{magenta stream=${stream}}{gray ]}`
     );
     return;
   }
