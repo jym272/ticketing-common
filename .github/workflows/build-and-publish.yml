@@ -29,6 +29,15 @@ jobs:
         with:
           fetch-depth: 0
       -
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'npm'
+      -
+        name: Clean install with dev dependencies
+        run: |
+          npm ci
+      -
         name: Set npm auth token
         run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
       -
