@@ -1,5 +1,6 @@
 name: build_image
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
@@ -18,10 +19,17 @@ jobs:
     timeout-minutes: 3
     runs-on: ubuntu-latest
     needs: [code_quality_check]
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       -
         name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      -
+        name: Set npm auth token
+        run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
       -
         name: Publish to npm
         run: npm run pub
