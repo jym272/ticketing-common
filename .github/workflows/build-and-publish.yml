@@ -21,15 +21,13 @@ jobs:
 #    needs: [code_quality_check]
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-#      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       -
         name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-          persist-credentials: false
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+          fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
       -
         uses: actions/setup-node@v3
         with:
@@ -53,31 +51,10 @@ jobs:
       -
         name: Patch
         run: npm version patch
-#      -
-#        name: Push tag
-#        env:
-#          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-#        run: |
-#          git push --follow-tags origin master
-      - name: Push changes
+
+      - name: Push new tag
         uses: ad-m/github-push-action@master
         with:
           force: true
           tags: true
           github_token: ${{ secrets.GH_TOKEN }}
-
-
-#      -
-#        name: Publish to npm
-#        run: npm run pub
-#      -
-#        name: Release to GitHub
-#        uses: softprops/action-gh-release@v1
-#        with:
-#          files: |
-#            dist/*
-#          tag_name: ${{ github.sha }}
-#          body: |
-#            ${{ github.event.head_commit.message }}
-#          draft: false
-#          prerelease: false
