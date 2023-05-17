@@ -1,6 +1,5 @@
 name: publish_to_npm
 on:
-  workflow_dispatch:
   push:
     branches:
       - master

@@ -5,7 +5,7 @@ on:
     tags:
       - "v*.*.*"
 jobs:
-  release:
+  create-release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
