@@ -11,34 +11,7 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 jobs:
-#  code_quality_check:
-#    uses: ./.github/workflows/code-quality-check.yml
-#    secrets: inherit
-  #
-  check-if-has-tag:
-    runs-on: ubuntu-latest
-#    needs: [code_quality_check]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: github json
-        run: |
-          echo "${{ toJson(github) }}"
-      - name: Check if has tag
-        id: check-if-has-tag
-        run: |
-          if git tag --points-at ${{ github.event.pull_request.head.sha }} | grep -q "v[0-9]\+\.[0-9]\+\.[0-9]\+"; then
-            echo "::set-output name=has_tag::true"
-          else
-            echo "::set-output name=has_tag::false"
-          fi
-      - name: Set has_tag output
-        if: steps.check-if-has-tag.outputs.has_tag == 'true'
-        run: |
-          echo "::set-output name=has_tag::true"
-      - name: Set has_tag output
-        if: steps.check-if-has-tag.outputs.has_tag == 'false'
-        run: |
-          echo "::set-output name=has_tag::false"
+  code_quality_check:
+    uses: ./.github/workflows/code-quality-check.yml
+    secrets: inherit
+

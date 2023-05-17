@@ -46,8 +46,18 @@ jobs:
         name: Set npm auth token
         run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
       -
-        name: Publish to npm
-        run: npm run pub
+        name: Build
+        run: npm run build
+      -
+        name: Patch
+        run: npm version patch
+      -
+        name: Push tag
+        run: |
+          git push --follow-tags origin master
+#      -
+#        name: Publish to npm
+#        run: npm run pub
 #      -
 #        name: Release to GitHub
 #        uses: softprops/action-gh-release@v1
