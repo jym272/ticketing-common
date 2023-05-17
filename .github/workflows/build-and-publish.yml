@@ -52,13 +52,19 @@ jobs:
       -
         name: Patch
         run: npm version patch
-      -
-        name: Push tag
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          git push --follow-tags origin master
-    
+#      -
+#        name: Push tag
+#        env:
+#          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+#        run: |
+#          git push --follow-tags origin master
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          force: true
+          tags: true
+          github_token: ${{ secrets.GH_TOKEN }}
+
 
 #      -
 #        name: Publish to npm
