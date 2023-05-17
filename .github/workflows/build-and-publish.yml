@@ -48,3 +48,14 @@ jobs:
       -
         name: Publish to npm
         run: npm run pub
+#      -
+#        name: Release to GitHub
+#        uses: softprops/action-gh-release@v1
+#        with:
+#          files: |
+#            dist/*
+#          tag_name: ${{ github.sha }}
+#          body: |
+#            ${{ github.event.head_commit.message }}
+#          draft: false
+#          prerelease: false
