@@ -1,19 +1,20 @@
-name: Tag
+name: release
 
 on:
   push:
-#    branches:
-#      - master
     tags:
       - "v*.*.*"
-# test 1212
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Generate Changelog
+        run: echo "commits" > ${{ github.workspace }}-CHANGELOG.txt
       - name: Release
         uses: softprops/action-gh-release@v1
+        with:
+          body_path: ${{ github.workspace }}-CHANGELOG.txt
