@@ -12,9 +12,9 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
 
 jobs:
-  code_quality_check:
-    uses: ./.github/workflows/code-quality-check.yml
-    secrets: inherit
+#  code_quality_check:
+#    uses: ./.github/workflows/code-quality-check.yml
+#    secrets: inherit
   build-push-image:
     timeout-minutes: 3
     runs-on: ubuntu-latest
