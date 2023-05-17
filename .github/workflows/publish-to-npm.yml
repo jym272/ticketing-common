@@ -14,7 +14,7 @@ jobs:
   code_quality_check:
     uses: ./.github/workflows/code-quality-check.yml
     secrets: inherit
-  build-push-image:
+  pub-and-push-new-tag:
     timeout-minutes: 3
     runs-on: ubuntu-latest
     needs: [code_quality_check]
