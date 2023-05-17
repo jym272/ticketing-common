@@ -5,7 +5,7 @@ export const commonController = {
   verifyCurrentUser: authController.verifyCurrentUser,
   errorHandler: utilsController.errorHandler
 };
-// test_line ignore 87
+// test_line ignore 88
 export * as utils from '@utils/index';
 export * as routes from '@routes/index';
 export * as events from '@events/index';
