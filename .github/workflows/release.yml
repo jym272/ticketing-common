@@ -13,7 +13,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Generate Changelog
-        run: echo "commits" > ${{ github.workspace }}-CHANGELOG.txt
+        run: |
+          info=$(git log -1 --pretty=format:"%b" $(git log -2 --pretty=format:"%h" | tail -n 1)) 
+          echo "$info" > ${{ github.workspace }}-CHANGELOG.txt
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
