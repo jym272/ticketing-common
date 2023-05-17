@@ -1,6 +1,6 @@
 {
   "name": "@jym272ticketing/common",
-  "version": "1.0.98",
+  "version": "1.0.99",
   "description": "https://dev.to/franciscomendes10866/how-to-setup-a-node-api-with-swc-and-eslint-1h5d | https://amanhimself.dev/blog/setup-nextjs-project-with-eslint-prettier-husky-lint-staged/",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
