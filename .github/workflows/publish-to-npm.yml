@@ -57,3 +57,8 @@ jobs:
           force: true
           tags: true
           github_token: ${{ secrets.GH_TOKEN }}
+
+      - name: Publish to npm
+        run: npm publish --access public
+#        env:
+#          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
